@@ -1,0 +1,139 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  10
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+actions
+(
+    {
+        action  new;
+        type    faceSet;
+        name    f_walls_cc_n;
+        source patchToFace;
+        patch  "walls";
+    }
+
+    {
+        action  delete;
+        type    faceSet;
+        name    f_walls_cc_n;
+        source boxToFace;
+        box   (-1 -1 -0.0041) (1 1 1);
+    }
+
+
+
+    {
+        action  new;
+        type    faceSet;
+        name    f_walls_cc_p;
+        source patchToFace;
+        patch  "walls";
+    }
+
+    {
+        action  delete;
+        type    faceSet;
+        name    f_walls_cc_p;
+        source boxToFace;
+        box   (-1 -1 -1) (1 1 0.0041);
+    }
+
+
+
+    {
+        action  new;
+        type    faceSet;
+        name    f_walls_electrode_n;
+        source patchToFace;
+        patch  "walls";
+    }
+
+    {
+        action  delete;
+        type    faceSet;
+        name    f_walls_electrode_n;
+        source boxToFace;
+        boxes   ((-1 -1 -1) (1 1 -0.0041)   (-1 -1 -0.0001) (1 1 1));
+    }
+
+
+
+    {
+        action  new;
+        type    faceSet;
+        name    f_walls_electrode_p;
+        source patchToFace;
+        patch  "walls";
+    }
+
+    {
+        action  delete;
+        type    faceSet;
+        name    f_walls_electrode_p;
+        source boxToFace;
+        boxes   ((-1 -1 -1) (1 1 0.0001)   (-1 -1 0.0041) (1 1 1));
+    }
+
+
+
+    {
+        action  new;
+        type    faceZoneSet;
+        name    electrode_cc_n;
+        source planeToFaceZone;
+        point   (0 0 -0.0041);
+        normal  (0 0 -1);  // orientation is important for separating regions
+        include all;          // Take all faces (default)
+        // include closest;   // Take the closest contiguous region of
+                      // faces to the plane point
+    }
+
+    {
+        action  new;
+        type    faceZoneSet;
+        name    electrode_cc_p;
+        source planeToFaceZone;
+        point   (0 0 0.0041);
+        normal  (0 0 1);  // orientation is important for separating regions
+        include all;          // Take all faces (default)
+        // include closest;   // Take the closest contiguous region of
+                      // faces to the plane point
+    }
+
+    {
+        action  new;
+        type    faceZoneSet;
+        name    electrode_s_n;
+        source planeToFaceZone;
+        point   (0 0 -0.0001);
+        normal  (0 0 1);  // orientation is important for separating regions
+        include all;          // Take all faces (default)
+        // include closest;   // Take the closest contiguous region of
+                      // faces to the plane point
+    }
+
+    {
+        action  new;
+        type    faceZoneSet;
+        name    electrode_s_p;
+        source planeToFaceZone;
+        point   (0 0 0.0001);
+        normal  (0 0 -1);  // orientation is important for separating regions
+        include all;          // Take all faces (default)
+        // include closest;   // Take the closest contiguous region of
+                      // faces to the plane point
+    }
+);
+
+// ************************************************************************* //

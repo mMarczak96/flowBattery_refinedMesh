@@ -1,0 +1,49 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  10
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       volScalarField;
+    location    "0/positive_electrode";
+    object      electrode_potential;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [1 2 -3 0 0 -1 0];
+
+internalField   uniform 0;
+
+boundaryField
+{
+    #include "$FOAM_CASE/include/setConstraintTypes"
+
+    inlet_positive_electrode
+    {
+        type            zeroGradient;
+    }
+    outlet_positive_electrode
+    {
+        type            zeroGradient;
+    }
+    walls_positive_electrode
+    {
+        type            zeroGradient;
+    }
+    positive_electrode_to_cc
+    {
+        type            fixedValue;
+        value           uniform 1.5;
+    }
+    positive_electrode_to_separator
+    {
+        type            zeroGradient;
+    }
+}
+
+
+// ************************************************************************* //

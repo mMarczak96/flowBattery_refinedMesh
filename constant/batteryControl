@@ -1,0 +1,30 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  10
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      batteryControl;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+galvanostatic
+{
+    I_total         0.5;
+    U_cell          1.5;
+    fi_max          2;
+    mult_a          0;
+    tol             1e-06;
+    ba              0.05;
+    alpha           1;
+    ref             0.01;
+}
+
+
+// ************************************************************************* //
